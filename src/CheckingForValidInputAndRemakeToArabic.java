@@ -1,8 +1,8 @@
-public class CheckingForValidInput {
-public static String error = "В строке должны содержаться две римские или арабские цифры от 1 до 10 и оператор между ними(+,-,*,/)";
-public static boolean isRoman = false;
-public static String operation = "";
-    public static String Checking(String example){
+class CheckingForValidInputAndRemakeToArabic {
+static String error = "В строке должны содержаться две римские или арабские цифры от 1 до 10 и оператор между ними(+,-,*,/)";
+static boolean isRoman = false;
+static String operation = "";
+    static String Checking(String example){
         String symbol = "-+*/";
         for(int i = 0;i<example.length();i++){
             if (symbol.contains(String.valueOf(example.charAt(i)))) {
@@ -13,8 +13,11 @@ public static String operation = "";
         if(operation.length() == 1 && exempleParts.length ==2){
              String firstVarible = exempleParts[0];
              String secondvarible = exempleParts[1];
-                if(isValidInput(example)){
+                if(isValidInput(example) && isRoman == true && isRomanNumberInRange(firstVarible) &&  isRomanNumberInRange(secondvarible)){
                     return romanToArabic(firstVarible)+operation+romanToArabic(secondvarible);
+                }
+                else if(isValidInput(example) && isRoman == false){
+                    return firstVarible + operation + secondvarible;
                 }
                 else {
                     System.out.println(error);
@@ -26,7 +29,16 @@ public static String operation = "";
             return null;
         }
     }
-    public static String romanToArabic(String roman){
+    static boolean isRomanNumberInRange(String roman) {
+        String[] validRomanNumbers = {"I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X"};
+        for (String validNumber : validRomanNumbers) {
+            if (roman.equals(validNumber)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    static String romanToArabic(String roman){
         switch (roman) {
             case "I": return "1";
             case "II": return "2";
@@ -41,7 +53,7 @@ public static String operation = "";
             default: return roman;
         }
     }
-    public static boolean isValidInput(String example) {
+    static boolean isValidInput(String example) {
         // Проверка на арабские цифры от 1 до 10
         boolean isValidArabic = example.matches("^(?:[1-9]|10)(?:[+\\-*/](?:[1-9]|10))*$");
         // Проверка на римские цифры от I до X
@@ -51,5 +63,4 @@ public static String operation = "";
         }
         return isValidArabic || isValidRoman;
     }
-
 }

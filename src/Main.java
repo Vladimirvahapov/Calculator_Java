@@ -1,11 +1,10 @@
 import java.util.Scanner;
-
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Введи выражение: ");
         String example = scanner.nextLine();
-        example = CheckingForValidInput.Checking(example);
+        example = CheckingForValidInputAndRemakeToArabic.Checking(example);
         if(example == null){
             System.exit(0);
         }
@@ -15,17 +14,15 @@ public class Main {
     }
 }
 class Calc{
-    public String exemple;
-    public String operation = CheckingForValidInput.operation;
-
+     String exemple;
+     String operation = CheckingForValidInputAndRemakeToArabic.operation;
      Calc(String exemple){
         this.exemple = exemple;
         Result();
     }
     void Result() {
         String[] exampleParts = exemple.replaceAll("\\s", "").split("\\Q" + operation + "\\E");
-        String result = ""; // Инициализируйте result пустой строкой
-
+        String result = "";
         switch (operation) {
             case "-":
                 result = Integer.toString(Integer.parseInt(exampleParts[0]) - Integer.parseInt(exampleParts[1]));
@@ -40,16 +37,15 @@ class Calc{
                 result = Integer.toString(Integer.parseInt(exampleParts[0]) / Integer.parseInt(exampleParts[1]));
                 break;
         }
-
-        if (CheckingForValidInput.isRoman) {
+        if (CheckingForValidInputAndRemakeToArabic.isRoman) {
             result = arabicToRoman(Integer.parseInt(result));
             System.out.println(result);
         } else {
             System.out.println(result);
         }
     }
-     String arabicToRoman(int a) {
-            String s = switch (a) {
+    String arabicToRoman(int a) {
+            return switch (a) {
                 case 1 -> "I";
                 case 2 -> "II";
                 case 3 -> "III";
@@ -96,11 +92,9 @@ class Calc{
                 case 81 -> "LXXXI";
                 case 90 -> "XC";
                 case 100 -> "C";
-                default -> "Отрицательное значение";
+                default -> "Результат меньше единицы";
             };
-            return s;
         }
-
     }
 
 
