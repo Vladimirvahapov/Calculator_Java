@@ -1,16 +1,23 @@
 import java.util.Scanner;
-public class Main {
-    public static void main(String[] args) {
+import java.io.IOException;
+public class Main{
+    public static void main(String[] args) throws IOException {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Введи выражение: ");
         String example = scanner.nextLine();
-        example = CheckingForValidInputAndRemakeToArabic.Checking(example);
-        if(example == null){
-            System.exit(0);
+        try {
+            example = CheckingForValidInputAndRemakeToArabic.Checking(example);
+            if(example == null){
+                System.exit(0);
+            }
+            else {
+                new Calc(example);
+            }
+        }catch (IOException e){
+            throw new IOException(CheckingForValidInputAndRemakeToArabic.error);
+
         }
-        else {
-            new Calc(example);
-        }
+
     }
 }
 class Calc{

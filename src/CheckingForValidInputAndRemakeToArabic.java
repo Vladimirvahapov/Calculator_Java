@@ -1,8 +1,9 @@
+import java.io.IOException;
 class CheckingForValidInputAndRemakeToArabic {
 static String error = "В строке должны содержаться две римские или арабские цифры от 1 до 10 и оператор между ними(+,-,*,/)";
 static boolean isRoman = false;
 static String operation = "";
-    static String Checking(String example){
+    static String Checking(String example) throws IOException {
         String symbol = "-+*/";
         for(int i = 0;i<example.length();i++){
             if (symbol.contains(String.valueOf(example.charAt(i)))) {
@@ -20,13 +21,11 @@ static String operation = "";
                     return firstVarible + operation + secondvarible;
                 }
                 else {
-                    System.out.println(error);
-                    return null;
+                    throw new IOException(error);
                 }
         }
         else {
-            System.out.println(error);
-            return null;
+            throw new IOException(error);
         }
     }
     static boolean isRomanNumberInRange(String roman) {
